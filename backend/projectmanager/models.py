@@ -10,7 +10,22 @@ from django_quill.fields import QuillField
 #     def __str__(self):
 #         return self.name
 
+class Member(models.Model):
+    options = (
+        ('leader', 'Leader'),
+        ('member', 'Member'),
+        ('adviser', 'Adviser'),
+    )
+    member = models.ForeignKey(
+        User, on_delete=models.CASCADE)
+    role = models.CharField(max_length=10, default='member', choices=options)
+    color = models.CharField(max_length=10, blank=True, null=True)
+    date_created = models.DateTimeField(default=timezone.now)
+    date_updated = models.DateTimeField(default=timezone.now)
+    objects = models.Manager()
 
+    def __str__(self):
+        return self.member.get_full_name()
 class Project(models.Model):
 
     class PostObjects(models.Manager):
@@ -33,7 +48,7 @@ class Project(models.Model):
     deadline = models.DateTimeField(null=True, blank=True)
     date_created = models.DateTimeField(default=timezone.now)
     date_updated = models.DateTimeField(default=timezone.now)
-
+    member = models.ManyToManyField(Member)
 
     objects = models.Manager()  # default manager
     postobjects = PostObjects()  # custom manager
@@ -44,24 +59,7 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
-class Member(models.Model):
-    options = (
-        ('leader', 'Leader'),
-        ('member', 'Member'),
-        ('adviser', 'Adviser'),
-    )
-    member = models.ForeignKey(
-        User, on_delete=models.CASCADE)
-    role = models.CharField(max_length=10, default='member', choices=options)
-    project = models.ForeignKey(
-        Project, on_delete=models.CASCADE)
-    color = models.CharField(max_length=10, blank=True, null=True)
-    date_created = models.DateTimeField(default=timezone.now)
-    date_updated = models.DateTimeField(default=timezone.now)
-    objects = models.Manager()
 
-    def __str__(self):
-        return self.member.get_full_name()
 
 class Task(models.Model):
     options = (
