@@ -4,12 +4,12 @@ from .models import Project, Member, Task
 
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('id', 'title', 'description', 'member', 'isAResource', 'deadline', 'status')
+        fields = ('id', 'title', 'description', 'isAResource', 'deadline', 'status')
         model = Project
 
 class MemberSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('id', 'member', 'role', 'color')
+        fields = ('id', 'member', 'role', 'color', 'project')
         model = Member
 
 class TaskSerializer(serializers.ModelSerializer):

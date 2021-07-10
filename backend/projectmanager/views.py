@@ -1,7 +1,7 @@
 from rest_framework import generics
 from .models import Project
 from .serializers import *
-from rest_framework.permissions import SAFE_METHODS, IsAuthenticated, BasePermission, IsAdminUser, DjangoModelPermissions
+from rest_framework.permissions import SAFE_METHODS,IsAuthenticatedOrReadOnly, IsAuthenticated, BasePermission, IsAdminUser, DjangoModelPermissions
 
 class ProjectUserWritePermission(BasePermission):
     message = 'Editing posts is restricted to the author only.'
@@ -11,24 +11,39 @@ class ProjectUserWritePermission(BasePermission):
         if request.method in SAFE_METHODS:
             return True
 
-        return obj.member == request.user 
+        print(obj.status, 'member')
+        print(request.user , 'user')
+        
+        return obj.status == request.user
 
 class ProjectList(generics.ListCreateAPIView):
-    permission_classes = [ProjectUserWritePermission]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
 
 
 class ProjectDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [ProjectUserWritePermission]
+    #permission_classes = [ProjectUserWritePermission]
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
 
+class MemberUserWritePermission(BasePermission):
+    message = 'Editing posts is restricted to the author only.'
+
+    def has_object_permission(self, request, view, obj):
+
+        if request.method in SAFE_METHODS:
+            return True
+
+        return obj.project == request.user
+
 class MemberList(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Member.objects.all()
     serializer_class = MemberSerializer
 
 class MemberDetail(generics.RetrieveUpdateDestroyAPIView):
+    #permission_classes = [MemberUserWritePermission]
     queryset = Member.objects.all()
     serializer_class = MemberSerializer
 
