@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+# Trial 
+frontend/
+backend-api/
+meegu-frontend/
