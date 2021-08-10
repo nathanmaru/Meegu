@@ -1,3 +1,4 @@
 # Meegu
 
-hello
+To run the backend:
+1. 
