@@ -110,7 +110,36 @@ export const googleAuth = (formBody) =>
 		},
 		onSuccess: userLoggedIn.type,
 	});
+export const googleAuthenticate = (state, code) => {
+	if (state && code && !localStorage.getItem('access')) {
+		const config = {
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+			},
+		};
 
+		const details = {
+			state: state,
+			code: code,
+		};
+
+		const formBody = Object.keys(details)
+			.map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(details[key]))
+			.join('&');
+
+		apiCallBegan({
+			url: `/auth/o/google-oauth2/?${formBody}`,
+			method: 'post',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+			},
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+			},
+			onSuccess: userLoggedIn.type,
+		});
+	}
+};
 export const checkAuth = () =>
 	apiCallBegan({
 		url: '/auth/jwt/verify/',

@@ -15,8 +15,21 @@ const Layout = ({ children }) => {
 		const state = values.state ? values.state : null;
 		const code = values.code ? values.code : null;
 
-		if (state && code) {
-			dispatch(googleAuth(state, code));
+		if (state && code && !localStorage.getItem('access')) {
+			const details = {
+				state,
+				code,
+			};
+			console.log(details);
+
+			const formBody = Object.keys(details)
+				.map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(details[key]))
+				.join('&');
+			console.log(formBody);
+
+			dispatch(googleAuth(formBody));
+		}
+		if (localStorage.getItem('access')) {
 		}
 	}, [location]);
 

@@ -84,4 +84,4 @@ const Login = () => {
 	);
 };
 
-export default withSocialAuth(Login);
+export default Login;

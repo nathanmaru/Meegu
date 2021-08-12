@@ -14,12 +14,13 @@ function withSocialAuth(Component) {
 			const values = queryString.parse(location.search);
 			const state = values.state ? values.state : null;
 			const code = values.code ? values.code : null;
-
+			console.log(state, code);
 			if (state && code) {
 				const details = {
 					state,
 					code,
 				};
+				console.log(details);
 
 				const formBody = Object.keys(details)
 					.map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(details[key]))
