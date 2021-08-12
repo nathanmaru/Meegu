@@ -63,7 +63,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'meegu.urls'
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://localhost:3001"]
+CORS_ORIGIN_ALLOW_ALL = True
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
