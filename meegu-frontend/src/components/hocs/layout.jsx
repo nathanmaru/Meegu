@@ -30,6 +30,7 @@ const Layout = ({ children }) => {
 			dispatch(googleAuth(formBody));
 		}
 		if (localStorage.getItem('access')) {
+			dispatch(load_user());
 		}
 	}, [location]);
 
