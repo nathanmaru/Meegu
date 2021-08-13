@@ -4,7 +4,6 @@ import Loader from '../loader';
 
 const ProtectedRoute = ({ path, component: Component, render, ...rest }) => {
 	const { user, isloading } = useSelector((state) => state.user);
-	console.log(user, isloading);
 	if (isloading) return <div>{Loader}</div>;
 	const loginErrorMessage = (
 		<div>

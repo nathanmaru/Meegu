@@ -19,12 +19,10 @@ const Layout = ({ checkAuth, load_user, googleAuth, children }) => {
 				state,
 				code,
 			};
-			console.log(details);
 
 			const formBody = Object.keys(details)
 				.map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(details[key]))
 				.join('&');
-			console.log(formBody);
 
 			googleAuth(formBody);
 		} else {

@@ -26,7 +26,7 @@ const Login = ({ login, isAuthenticated }) => {
 		e.preventDefault();
 		try {
 			const res = await axios.get(
-				'http://localhost:8000/auth/o/google-oauth2/?redirect_uri=http://localhost:3000/google'
+				'http://localhost:8000/auth/o/google-oauth2/?redirect_uri=http://localhost:8000/google'
 			);
 
 			window.location.replace(res.data.authorization_url);
