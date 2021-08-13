@@ -9,6 +9,7 @@ function withSocialAuth(Component) {
 	return function WithAuth(props) {
 		const dispatch = useDispatch();
 		let location = useLocation();
+		console.log('Homepage');
 
 		useEffect(() => {
 			const values = queryString.parse(location.search);

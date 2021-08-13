@@ -1,11 +1,13 @@
-import { useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import Loader from './loader';
 import withAuth from './hocs/withAuth';
 
-const NewsFeed = () => {
-	const { user, isloading } = useSelector((state) => state.user);
-
-	return <div>{isloading ? <Loader /> : <div>Hello {user.first_name}</div>}</div>;
+const NewsFeed = ({ user, isLoading }) => {
+	return <div>{isLoading ? <Loader /> : <div>Hello {user.first_name}</div>}</div>;
 };
 
-export default withAuth(NewsFeed);
+const mapStateToProps = (state) => ({
+	user: state.user.user,
+	isLoading: state.user.isLoading,
+});
+export default connect(mapStateToProps, null)(NewsFeed);

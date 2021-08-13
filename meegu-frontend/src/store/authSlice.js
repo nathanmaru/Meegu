@@ -7,24 +7,24 @@ export const userSlice = createSlice({
 	name: 'auth',
 	initialState: {
 		user: null,
-		isloading: false,
+		isLoading: false,
 		isAuthenticated: false,
 	},
 	reducers: {
 		//actions => action handlers
 		//use this when you talk to the state
 		userRequested: (auth, action) => {
-			auth.isloading = true;
+			auth.isLoading = true;
 		},
 		userRequestFailed: (auth, action) => {
-			auth.isloading = false;
+			auth.isLoading = false;
 		},
 		userLoggedIn: (auth, action) => {
 			localStorage.setItem('access', action.payload.access);
 		},
 		userLoaded: (auth, action) => {
 			auth.user = action.payload;
-			auth.isloading = false;
+			auth.isLoading = false;
 		},
 		userLoggedOut: (auth, action) => {
 			localStorage.removeItem('access');
@@ -110,6 +110,7 @@ export const googleAuth = (formBody) =>
 		},
 		onSuccess: userLoggedIn.type,
 	});
+
 export const googleAuthenticate = (state, code) => {
 	if (state && code && !localStorage.getItem('access')) {
 		const config = {

@@ -18,7 +18,7 @@ const App = () => {
 					<Layout />
 					<Switch>
 						<Route exact path='/' component={Homepage} />
-						<Route path='/newsfeed' component={NewsFeed} />
+						<ProtectedRoute exact path='/newsfeed' component={NewsFeed} />
 						<Route exact path='/login' component={Login} />
 						<Route exact path='/signup' component={SignUp} />
 						<Route exact path='/activate/:uid/:token' component={Activate} />

@@ -1,37 +1,32 @@
-import { useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { login, checkAuth, load_user } from '../../store/authSlice';
-import withSocialAuth from '../hocs/withSocialAuth';
+import { useState } from 'react';
+import { Redirect, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { login } from '../../store/authSlice';
 import axios from 'axios';
 
-const Login = () => {
+const Login = ({ login, isAuthenticated }) => {
 	const [formData, setFormData] = useState({
 		email: '',
 		password: '',
 	});
+
 	const { email, password } = formData;
 
 	const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-	const dispatch = useDispatch();
-
 	const onSubmit = (e) => {
 		e.preventDefault();
 		//login
-
-		dispatch(login(email, password));
-		dispatch(checkAuth());
-		dispatch(load_user());
-		return <Redirect to='/newsfeed' />;
+		login(email, password);
 	};
-
+	if (isAuthenticated) {
+		return <Redirect to='/'></Redirect>;
+	}
 	const google = async (e) => {
 		e.preventDefault();
 		try {
 			const res = await axios.get(
-				'http://localhost:8000/auth/o/google-oauth2/?redirect_uri=http://localhost:8000/google'
+				'http://localhost:8000/auth/o/google-oauth2/?redirect_uri=http://localhost:3000/google'
 			);
 
 			window.location.replace(res.data.authorization_url);
@@ -84,4 +79,8 @@ const Login = () => {
 	);
 };
 
-export default Login;
+const mapStateToProps = (state) => ({
+	isAuthenticated: state.user.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { login })(Login);

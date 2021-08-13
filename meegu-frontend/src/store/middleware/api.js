@@ -1,5 +1,7 @@
 import axios from 'axios';
 import * as actions from '../actions/api';
+import { load_user } from '../authSlice';
+
 const api =
 	({ dispatch }) =>
 	(next) =>
@@ -22,6 +24,10 @@ const api =
 			//general
 			dispatch(actions.apiCallSuccess(response.data));
 			if (onSuccess) dispatch({ type: onSuccess, payload: response.data });
+			//After Logged In
+			if (onSuccess === 'auth/userLoggedIn') {
+				dispatch(load_user());
+			}
 		} catch (error) {
 			//general error handling
 			dispatch(actions.apiCallFailed(error.message));

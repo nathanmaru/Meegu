@@ -1,10 +1,14 @@
 import { userLoggedOut } from '../../store/authSlice';
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
 
 const NavBar = () => {
 	const dispatch = useDispatch();
-	const loggout_user = () => dispatch(userLoggedOut());
+
+	const loggout_user = () => {
+		dispatch(userLoggedOut());
+	};
+
 	return (
 		<header className='pb-3 mb-4 border-bottom'>
 			<a href='/' className='d-flex align-items-center text-dark text-decoration-none'>

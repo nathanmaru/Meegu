@@ -1,13 +1,12 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
+import { Redirect } from 'react-router-dom';
 import queryString from 'query-string';
 import NavBar from '../common/navbar';
+import { connect } from 'react-redux';
 import { googleAuth, checkAuth, load_user } from '../../store/authSlice';
 
-const Layout = ({ children }) => {
-	const dispatch = useDispatch();
-
+const Layout = ({ checkAuth, load_user, googleAuth, children }) => {
 	let location = useLocation();
 
 	useEffect(() => {
@@ -27,10 +26,12 @@ const Layout = ({ children }) => {
 				.join('&');
 			console.log(formBody);
 
-			dispatch(googleAuth(formBody));
-		}
-		if (localStorage.getItem('access')) {
-			dispatch(load_user());
+			googleAuth(formBody);
+		} else {
+			if (localStorage.getItem('access')) {
+				checkAuth();
+				load_user();
+			}
 		}
 	}, [location]);
 
@@ -42,4 +43,4 @@ const Layout = ({ children }) => {
 	);
 };
 
-export default Layout;
+export default connect(null, { checkAuth, load_user, googleAuth })(Layout);
