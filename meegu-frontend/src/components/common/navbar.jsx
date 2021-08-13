@@ -1,25 +1,74 @@
+import React, { Fragment, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch, connect } from 'react-redux';
 import { userLoggedOut } from '../../store/authSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
 
-const NavBar = () => {
+const Navbar = ({ isAuthenticated }) => {
 	const dispatch = useDispatch();
+	const [redirect, setRedirect] = useState(false);
 
-	const loggout_user = () => {
+	const logout_user = () => {
 		dispatch(userLoggedOut());
+		setRedirect(true);
 	};
 
+	const guestLinks = () => (
+		<Fragment>
+			<li className='nav-item'>
+				<Link className='nav-link' to='/login'>
+					Login
+				</Link>
+			</li>
+			<li className='nav-item'>
+				<Link className='nav-link' to='/signup'>
+					Sign Up
+				</Link>
+			</li>
+		</Fragment>
+	);
+	const authLinks = () => (
+		<Fragment>
+			<li className='nav-item'>
+				<a className='nav-link' href='#!' onClick={logout_user}>
+					Log out
+				</a>
+			</li>
+		</Fragment>
+	);
+
 	return (
-		<header className='pb-3 mb-4 border-bottom'>
-			<a href='/' className='d-flex align-items-center text-dark text-decoration-none'>
-				<span className='fs-4'>Meegu</span>
-			</a>
-			<Link to='/newsfeed'>Newsfeed</Link>
-			<button className='btn btn-primary btn-xs' onClick={loggout_user}>
-				Logout
-			</button>
-		</header>
+		<nav className='navbar navbar-expand-lg navbar-light bg-light'>
+			<div className='container-fluid'>
+				<Link className='navbar-brand' to='/'>
+					Meegu
+				</Link>
+				<button
+					className='navbar-toggler'
+					type='button'
+					data-bs-toggle='collapse'
+					data-bs-target='#navbarNav'
+					aria-controls='navbarNav'
+					aria-expanded='false'
+					aria-label='Toggle navigation'
+				>
+					<span className='navbar-toggler-icon'></span>
+				</button>
+				<div className='collapse navbar-collapse' id='navbarNav'>
+					<ul className='navbar-nav'>
+						<li className='nav-item'>
+							<Link className='nav-link' to='/'>
+								Home
+							</Link>
+						</li>
+						{isAuthenticated ? authLinks() : guestLinks()}
+					</ul>
+				</div>
+			</div>
+		</nav>
 	);
 };
 
-export default NavBar;
+const mapStateToProps = (state) => ({
+	isAuthenticated: state.user.isAuthenticated,
+});
+export default connect(mapStateToProps, null)(Navbar);

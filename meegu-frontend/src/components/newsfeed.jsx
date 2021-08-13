@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import Loader from './loader';
-import withAuth from './hocs/withAuth';
 
 const NewsFeed = ({ user, isLoading }) => {
 	return <div>{isLoading ? <Loader /> : <div>Hello {user.first_name}</div>}</div>;

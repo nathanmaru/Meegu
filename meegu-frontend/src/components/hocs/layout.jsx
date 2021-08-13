@@ -6,7 +6,7 @@ import NavBar from '../common/navbar';
 import { connect } from 'react-redux';
 import { googleAuth, checkAuth, load_user } from '../../store/authSlice';
 
-const Layout = ({ checkAuth, load_user, googleAuth, children }) => {
+const Layout = ({ checkAuth, load_user, googleAuth, isAuthenticated, children }) => {
 	let location = useLocation();
 
 	useEffect(() => {
@@ -23,7 +23,6 @@ const Layout = ({ checkAuth, load_user, googleAuth, children }) => {
 			const formBody = Object.keys(details)
 				.map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(details[key]))
 				.join('&');
-
 			googleAuth(formBody);
 		} else {
 			if (localStorage.getItem('access')) {
@@ -41,4 +40,8 @@ const Layout = ({ checkAuth, load_user, googleAuth, children }) => {
 	);
 };
 
-export default connect(null, { checkAuth, load_user, googleAuth })(Layout);
+const mapStateToProps = (state) => ({
+	isAuthenticated: state.user.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { checkAuth, load_user, googleAuth })(Layout);
