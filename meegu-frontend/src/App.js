@@ -7,8 +7,10 @@ import SignUp from './components/accounts/signup';
 import Layout from './components/hocs/layout';
 import NewsFeed from './components/newsfeed';
 import store from './store/configureStore';
-import ProtectedRoute from './components/common/protectedRoute';
-import NavBar from './components/common/navbar';
+// import ProtectedRoute from './components/common/protectedRoute';
+// import NavBar from './components/common/navbar';
+
+import './tailwind.css';
 
 const App = () => {
 	return (
