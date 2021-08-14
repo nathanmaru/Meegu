@@ -32,9 +32,12 @@ class UserAccountManager(BaseUserManager):
         return user
 
 class UserAccount(AbstractBaseUser, PermissionsMixin):
+   
     email = models.EmailField(max_length=255, unique=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
+    address = models.TextField(null=True, blank=True)
+    gender = models.CharField(null=True, blank=True, max_length=255)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=timezone.now)
