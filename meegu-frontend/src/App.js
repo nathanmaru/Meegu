@@ -5,10 +5,12 @@ import Homepage from './components/accounts/homePage';
 import Login from './components/accounts/login';
 import SignUp from './components/accounts/signup';
 import Layout from './components/hocs/layout';
+import ResetPassword from './components/accounts/resetPassword';
+import ResetPasswordConfirm from './components/accounts/resetPasswordConfirm';
+import UserProfile from './components/accounts/profile';
 import NewsFeed from './components/newsfeed';
 import store from './store/configureStore';
 import ProtectedRoute from './components/common/protectedRoute';
-import NavBar from './components/common/navbar';
 
 const App = () => {
 	return (
@@ -19,9 +21,13 @@ const App = () => {
 					<Switch>
 						<Route exact path='/' component={Homepage} />
 						<ProtectedRoute exact path='/newsfeed' component={NewsFeed} />
+						<ProtectedRoute exact path='/profile' component={UserProfile} />
 						<Route exact path='/login' component={Login} />
 						<Route exact path='/signup' component={SignUp} />
+						<Route exact path='/signup' component={SignUp} />
 						<Route exact path='/activate/:uid/:token' component={Activate} />
+						<Route exact path='/reset-password' component={ResetPassword} />
+						<Route exact path='/password/reset/confirm/:uid/:token' component={ResetPasswordConfirm} />
 					</Switch>
 				</div>
 			</Router>

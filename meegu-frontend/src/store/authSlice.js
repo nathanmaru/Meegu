@@ -91,12 +91,15 @@ export const load_user = () =>
 export const reset_password = (email) =>
 	apiCallBegan({
 		url: '/auth/users/reset_password/',
+		method: 'post',
+		headers: { 'Content-Type': 'application/json' },
 		data: { email },
 		onSuccess: 'auth/userResetPassword',
 	});
 export const reset_password_confirm = (uid, token, new_password, re_new_password) =>
 	apiCallBegan({
 		url: '/auth/users/reset_password_confirm/',
+		method: 'post',
 		data: { uid, token, new_password, re_new_password },
 		onSuccess: 'auth/userResetPasswordConfirm',
 	});
@@ -111,36 +114,6 @@ export const googleAuth = (formBody) =>
 		onSuccess: userLoggedIn.type,
 	});
 
-export const googleAuthenticate = (state, code) => {
-	if (state && code && !localStorage.getItem('access')) {
-		const config = {
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded',
-			},
-		};
-
-		const details = {
-			state: state,
-			code: code,
-		};
-
-		const formBody = Object.keys(details)
-			.map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(details[key]))
-			.join('&');
-
-		apiCallBegan({
-			url: `/auth/o/google-oauth2/?${formBody}`,
-			method: 'post',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded',
-			},
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded',
-			},
-			onSuccess: userLoggedIn.type,
-		});
-	}
-};
 export const checkAuth = () =>
 	apiCallBegan({
 		url: '/auth/jwt/verify/',

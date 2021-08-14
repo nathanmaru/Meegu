@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { reset_password } from '../../store/authSlice';
 
-const ResetPassword = ({ resetPassword, isAuthenticated }) => {
+const ResetPassword = ({ reset_password }) => {
 	const [requestSent, setRequestSent] = useState(false);
 	const [formData, setFormData] = useState({
 		email: '',
@@ -44,4 +45,4 @@ const ResetPassword = ({ resetPassword, isAuthenticated }) => {
 	);
 };
 
-export default ResetPassword;
+export default connect(null, { reset_password })(ResetPassword);

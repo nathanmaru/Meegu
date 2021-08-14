@@ -33,6 +33,11 @@ const Navbar = ({ isAuthenticated }) => {
 					Log out
 				</a>
 			</li>
+			<li className='nav-item'>
+				<Link className='nav-link' to='/profile'>
+					Profile
+				</Link>
+			</li>
 		</Fragment>
 	);
 
