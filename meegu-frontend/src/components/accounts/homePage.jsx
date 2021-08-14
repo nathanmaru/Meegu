@@ -1,6 +1,6 @@
 import { Link, Redirect } from 'react-router-dom';
-import withAuth from '../hocs/withAuth';
-import { getUser } from '../../store/authSlice';
+// import withAuth from '../hocs/withAuth';
+// import { getUser } from '../../store/authSlice';
 
 const Homepage = () => {
 	return (
