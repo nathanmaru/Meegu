@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router';
-import { Redirect } from 'react-router-dom';
 import queryString from 'query-string';
-import NavBar from '../common/navbar';
 import { connect } from 'react-redux';
 import { googleAuth, checkAuth, load_user } from '../../store/authSlice';
 
@@ -32,12 +30,7 @@ const Layout = ({ checkAuth, load_user, googleAuth, isAuthenticated, children })
 		}
 	}, [location]);
 
-	return (
-		<div>
-			<NavBar />
-			{children}
-		</div>
-	);
+	return <div>{children}</div>;
 };
 
 const mapStateToProps = (state) => ({
