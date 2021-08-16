@@ -8,11 +8,11 @@ import SignUp from './signup';
 const AuthContainer = () => {
 	return (
 		<div className='container'>
-			<Route exact path='/login' component={Login} />
-			<Route exact path='/signup' component={SignUp} />
-			<Route exact path='/activate/:uid/:token' component={Activate} />
-			<Route exact path='/reset-password' component={ResetPassword} />
-			<Route exact path='/password/reset/confirm/:uid/:token' component={ResetPasswordConfirm} />
+			<Route exact path='/auth/login' component={Login} />
+			<Route exact path='/auth/signup' component={SignUp} />
+			<Route exact path='/auth/activate/:uid/:token' component={Activate} />
+			<Route exact path='/auth/reset-password' component={ResetPassword} />
+			<Route exact path='/auth/password/reset/confirm/:uid/:token' component={ResetPasswordConfirm} />
 		</div>
 	);
 };

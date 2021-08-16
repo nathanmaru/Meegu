@@ -16,7 +16,7 @@ const App = () => {
 					<Layout />
 					<LandingPageContainer />
 					<AuthContainer />
-					<Dashboard />
+					{pathname !== '/' || (!pathname.includes('/auth/') && <Dashboard />)}
 				</div>
 			</Switch>
 		</div>
