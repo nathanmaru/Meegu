@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Loader from '../loader';
+import Loader from '../common/loader';
 const UserProfile = ({ user, isLoading }) => {
 	const Profile = () => {
 		return (

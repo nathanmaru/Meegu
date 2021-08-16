@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Link, Route } from 'react-router-dom';
-import Loader from '../loader';
+import Loader from '../common/loader';
 
 const ProtectedRoute = ({ path, component: Component, render, ...rest }) => {
 	const { user, isloading } = useSelector((state) => state.user);
